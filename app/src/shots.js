@@ -1,7 +1,2 @@
-// Fixed scenes for screenshots: ?shot=editor shows the page with a sample photo; ?shot=cover shows the cover alone.
-// `photo` picks the sample (samples/<photo>.jpg) and `caption` the words. window.__shotReady is set once painted.
-export async function runShot(shot, query, load) {
-  if (shot === 'cover') document.body.classList.add('shot-cover');
-  await load(`samples/${query.get('photo') ?? 'pier'}.jpg`, query.get('caption') ?? 'Sunset Heist');
-  requestAnimationFrame(() => requestAnimationFrame(() => { window.__shotReady = true; }));
-}
+const sceneMap={cover:{size:'landscape',layout:'Pop-Out Hero',grade:'Neon Nights',caption:'NEON NIGHTS',subtitle:'THE CITY NEVER SLEEPS',photo:'boulevard.jpg'},editor:{size:'portrait',layout:'Hero Left',grade:'Vice Sunset',caption:'SUNSET DRIVE',subtitle:'A CITY AFTER DARK',photo:'boulevard.jpg'},portrait:{size:'portrait',layout:'Hero Left',grade:'Vice Sunset',caption:'COASTLINE',subtitle:'A CITY AFTER DARK',photo:'pier.jpg'},square:{size:'square',layout:'Strip',grade:'Bubblegum',caption:'VICE CITY',subtitle:'THREE SIDES OF SUMMER',photo:'boulevard.jpg'}};
+export function getShotScene(name){return sceneMap[name]||null;}

@@ -1,23 +1,50 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cover Snap</title>
-<link rel="stylesheet" href="./style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101113">
+  <title>Sunset Vice Cover Studio</title>
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-<main class="app">
-  <section class="controls">
-    <h1>Cover Snap</h1>
-    <p>A photo and a caption, made into a square cover.</p>
-    <label>Photo <input id="photo" type="file" accept="image/*"></label>
-    <label>Caption <input id="caption" type="text" maxlength="40" value="Sunset Heist"></label>
-    <button id="export" type="button">Export PNG 1080 x 1080</button>
-    <p id="status" role="status"></p>
-  </section>
-  <canvas id="cover" width="1080" height="1080" aria-label="The cover"></canvas>
-</main>
-<script type="module" src="./src/main.js"></script>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Sunset Vice Cover Studio home"><span class="brand-mark">SV</span><span>Sunset Vice <em>Cover Studio</em></span></a>
+    <div class="top-note"><span class="offline-dot"></span> LOCAL CREATIVE STUDIO <span class="top-divider">·</span> YOUR PHOTOS STAY HERE</div>
+  </header>
+  <main class="workspace">
+    <aside class="sidebar">
+      <div class="intro"><p class="eyebrow">MAKE YOUR MOMENT A POSTER</p><h1>Build a cover<br><span>worth keeping.</span></h1><p class="intro-copy">A few clicks, a little neon, your own story.</p></div>
+      <div class="steps"><div class="step active"><b>01</b><span>Photo</span></div><div class="step"><b>02</b><span>Style</span></div><div class="step"><b>03</b><span>Export</span></div></div>
+      <section class="control-section">
+        <div class="section-head"><div><p class="eyebrow">01 / IMAGE</p><h2>Choose your scene</h2></div><span class="tiny-count" id="panelCount">01 PANELS</span></div>
+        <div class="scene-grid" id="samples"></div>
+        <div class="upload-row"><button class="button button-light" id="uploadButton" type="button"><span>＋</span> Add a photo</button><span class="hint">JPG · PNG · WEBP</span><input id="photoInput" type="file" accept="image/*" hidden></div>
+        <div class="mode-line"><label class="switch"><input id="onePhotoMode" type="checkbox" checked><span></span></label><div><strong>One photo, every panel</strong><small>Or give each panel its own shot</small></div></div>
+        <div class="selected-panel"><label for="panelSelect">EDIT PANEL</label><select id="panelSelect"></select></div>
+        <div class="tag-field"><label class="field-label" for="tagInput">PANEL NAME TAG</label><input id="tagInput" class="text-input" maxlength="22" value="LEAD SCENE" aria-label="Selected panel name tag"></div>
+        <div class="crop-controls">
+          <div class="crop-label"><span>SMART CROP · MANUAL ADJUST</span><button id="fitToggle" class="text-button" type="button">FILL</button></div>
+          <label class="slider-row"><span>ZOOM</span><input id="zoomSlider" type="range" min="1" max="2.6" step="0.01" value="1"><output id="zoomValue">1.0×</output></label>
+          <p class="microcopy">Drag the artwork to reframe. Scroll to zoom.</p>
+        </div>
+      </section>
+      <section class="control-section style-section">
+        <div class="section-head"><div><p class="eyebrow">02 / ART DIRECTION</p><h2>Set the mood</h2></div></div>
+        <label class="field-label" for="layoutSelect">LAYOUT</label><select id="layoutSelect" class="wide-select"></select>
+        <div class="grade-head"><span class="field-label">COLOR GRADE</span><span class="tiny-count">6 FINISHES</span></div><div id="gradeGrid" class="grade-grid"></div>
+        <label class="field-label title-label" for="captionInput">COVER TITLE</label><input id="captionInput" class="text-input" maxlength="32" value="SUNSET DRIVE" aria-label="Cover title">
+        <div class="subtitle-fields"><input id="subtitleInput" class="text-input" maxlength="46" value="A CITY AFTER DARK" aria-label="Subtitle"><select id="titleStyle" class="style-select" aria-label="Title treatment"><option value="chrome">CHROME</option><option value="outline">OUTLINE</option><option value="solid">SOLID</option></select></div>
+      </section>
+    </aside>
+    <section class="preview-column" aria-label="Cover preview">
+      <div class="preview-heading"><div><p class="eyebrow">LIVE ARTBOARD</p><h2>Your cover, in progress</h2></div><div class="live-indicator"><span></span> LIVE</div></div>
+      <div class="canvas-stage"><canvas id="coverCanvas" width="1080" height="1350" aria-label="Poster artwork preview"></canvas><div id="stageHint" class="stage-hint">Choose a photo to begin</div></div>
+      <div class="preview-footer"><span><i class="swatch"></i> ORIGINAL POSTER SYSTEM</span><span id="resolutionLabel">PORTRAIT · 4:5</span></div>
+      <div class="export-dock"><div class="export-title"><span class="export-icon">↗</span><div><strong>Take it with you</strong><small>High-resolution PNG · no watermark</small></div></div><div class="export-buttons"><button data-size="square" type="button">Square <small>1080 × 1080</small><b>↓</b></button><button data-size="portrait" type="button" class="selected">Portrait <small>1080 × 1350</small><b>↓</b></button><button data-size="landscape" type="button">Landscape <small>1920 × 1080</small><b>↓</b></button></div></div>
+    </section>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="./src/main.js"></script>
 </body>
 </html>
